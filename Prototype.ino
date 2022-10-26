@@ -259,6 +259,24 @@ void GETVERSION(){
   READING(0x04);
 }
 
+void WRITETAG(byte Adress){
+  digitalWrite(SPI_SS, LOW);
+  SPI.transfer(SEND);
+  SPI.transfer(0x04);
+  SPI.transfer(0x07);
+  SPI.transfer(0xA2);
+  SPI.transfer(Adress);
+  SPI.transfer(0x42);
+  SPI.transfer(0x72);
+  SPI.transfer(0x75);
+  SPI.transfer(0x68);
+  SPI.transfer(0x28);
+
+  digitalWrite(SPI_SS, HIGH);
+  POLLING();
+  READING();
+}
+
 void READTAG(byte Adress){
   digitalWrite(SPI_SS, LOW);
   SPI.transfer(SEND);
@@ -323,6 +341,11 @@ void loop() {
     GETVERSION();
     READTAG(0x04);
     HALT();*/
+/*
+    WRITETAG(0x04);
+    WRITETAG(0x05);
+    WRITETAG(0x06);
+    WRITETAG(0x07);*/
   }
   Serial.println(); 
   
